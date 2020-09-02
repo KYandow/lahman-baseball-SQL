@@ -1,13 +1,14 @@
-/*  Answers Question 1
+/*  Answers Question 1 
 
-select MIN(f.yearid) from people p inner join pitching i on p.playerid = i.playerid					   
+--Use MIN to find earliest year / MAX for latest
+select MAX(f.yearid) from people p inner join pitching i on p.playerid = i.playerid					   
 					   inner join batting b on p.playerid = b.playerid
 					   inner join fielding f on p.playerid = f.playerid
 
 	Answers Question 2
 
-select height, namefirst, namelast
-from people
+select height, namefirst, namelast, debut, finalgame, b.teamid
+from people p inner join batting b on p.playerid = b.playerid
 where height = (select MIN(height) from people)
 
 	Answers Question 3
@@ -64,15 +65,15 @@ select 100 * (sb / (sb + cs)::float) as stolen_base_pct, p.namefirst, p.namelast
 ORDER BY stolen_base_pct
 
 
-	Answers Question 7
+	Answers Question 7 (maybe double check this)
 	Most Wins no Series - 2001 Mariners
 	Least Wins with Series - LA Dodgers 1981 strike, Atlanta Braves 1995 also a strike, but smaller
-	Pct Series winner won most: 22%
+	Pct Series winner won most: 22.6%
 
 select yearid, name, /*MIN*/MAX(w)from teams
 where yearid >= 1970 AND yearid <> 1981 AND wswin = 'N' /*'Y'*/
 GROUP BY yearid, name
-ORDER BY /*MIN*/MAX(w);	
+ORDER BY /*MIN*/MAX(w) DESC;	
 
 WITH sub AS (select distinct yearid, MAX(w) OVER (PARTITION BY yearid) as top_wins from teams
 where yearid >= 1970)

@@ -1,0 +1,6 @@
+Throws,batting_average_on_balls_in_play,earned_run_average,strikeouts_per_9,opponent_home_runs_per_9,wins_above_replacement,fielding_independent_pitching,velocity_of_fastball,velocity_of_slider,velocity_of_changeup,proportion_of_fastball,proportion_of_slider,proportion_of_changeup,success_weight_of_fastball,success_weight_of_slider,success_weight_of_changeup,hmove_of_fastball,hmove_of_slider,hmove_of_changeup,vmove_of_fastball,vmove_of_slider,vmove_of_changeup
+R,0.293,4.19,7.84,1.03,0.43,4.15,94.07,85.31,86.24,45.64,20.6,9.31,-0.27,0.44,-0.59,-4.28,-6.45,2.46,8.7,4.48,1.35
+L,0.301,4.39,7.6,1.06,0.37,4.28,91.92,83.69,83.08,45.53,18.11,13.99,-1.6,0.43,-0.14,6.12,8.62,0.08,9.13,5.54,2.14
+,,,,,,,,,,,,,,,,,,,,,
+40,,,,,,,,,,,,,,,,,,,,,
+107,,,,,,,,,,,,,,,,,,,,,
