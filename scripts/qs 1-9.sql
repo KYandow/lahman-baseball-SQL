@@ -76,7 +76,7 @@ GROUP BY yearid, name
 ORDER BY /*MIN*/MAX(w) DESC;	
 
 WITH sub AS (select distinct yearid, MAX(w) OVER (PARTITION BY yearid) as top_wins from teams
-where yearid >= 1970)
+where yearid >= 1970 ORDER BY yearid)
 
 select (select COUNT(*) from teams t inner join sub s on t.yearid = s.yearid
 WHERE top_wins = w AND t.wswin = 'Y') / 

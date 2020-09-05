@@ -1,12 +1,14 @@
 --Answers Question 12
 
---Shows correlation between the rate of wins for a season and the attendance for that season "t.yearid = a.year"
---OR adjust join to match on prior year: "t.yearid = a.year - 1"
-SELECT corr(win_rate, attend_per_game) as correlation from
+--Shows correlation between the rate of wins for a season and the attendance for the next season "t.yearid = a.year"
+--Adjust join to match on prior year: "t.yearid = a.year - 1"
+SELECT corr(one_yr_win_rate, attend_per_game) as correlation from
 (select t.yearid AS wins_year, ROUND((t.w/t.g::numeric), 2) AS one_yr_win_rate, a.year AS attendance_year, a.team, a.games AS attendance_games, a.attendance, ROUND((a.attendance / a.games::numeric), 0) AS attend_per_game 
   from homegames a inner join teams t 
     on t.teamid = a.team AND t.yearid = a.year - 1
-where year >= '2012' AND games > 50) as sub
+where year >= '1981' AND games > 50) as sub
+
+--46% correlation
 
 --Additional subquery finds win rate over multiple seasons - higher correlation for more historically recent seasons
 --Lower correlation for larger ranges of years
