@@ -11,8 +11,9 @@
 [My answers with code can be found here.](https://github.com/KYandow/lahman-baseball-SQL/files/5661529/lahman-sql-answers.pdf)
 
 1. 
+
 <details>
-    <summary>What range of years does the provided database cover?
+    <summary>What range of years does the provided database cover?</summary>
 
     #### 1871 to 2016
 ```sql
