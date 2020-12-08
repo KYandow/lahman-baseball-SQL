@@ -8,7 +8,7 @@
 
 :baseball:  **Initial Questions**  :baseball:
 
-[My answers with code can be found here.](https://github.com/KYandow/lahman-baseball-SQL/files/5661529/lahman-sql-answers.pdf)
+[My answers with code can be found here,](https://github.com/KYandow/lahman-baseball-SQL/files/5661529/lahman-sql-answers.pdf) or by clicking each question below.
 
 <details>
     <summary>1. What range of years does the provided database cover?</summary>
@@ -43,7 +43,7 @@ SELECT height, namefirst, namelast, debut, finalgame, b.teamid
 </details>
 
 <details>
-    <summary>2. Find all players in the database who played at Vanderbilt University. Create a list showing each player’s first and last names as well as the total salary they earned in the major leagues. Sort this list in descending order by the total salary earned. Which Vanderbilt player earned the most money in the majors?</summary>
+    <summary>3. Find all players in the database who played at Vanderbilt University. Create a list showing each player’s first and last names as well as the total salary they earned in the major leagues. Sort this list in descending order by the total salary earned. Which Vanderbilt player earned the most money in the majors?</summary>
 
 Earnings | schoolname | namefirst | namelast
 ---------|------------|-----------|----------
