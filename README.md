@@ -1,12 +1,12 @@
-## Lahman Baseball Database Exercise
-- this data has been made available [online](http://www.seanlahman.com/baseball-archive/statistics/) by Sean Lahman
-- you can find a data dictionary [here](http://www.seanlahman.com/files/database/readme2016.txt)
+# Lahman Baseball Database Exploration
 
-### Use SQL queries to find answers to the *Initial Questions*. If time permits, choose one (or more) of the *Open-Ended Questions*. Toward the end of the bootcamp, we will revisit this data if time allows to combine SQL, Excel Power Pivot, and/or Python to answer more of the *Open-Ended Questions*.
+### Use these resources to answer the questions below, then pick an open-ended question to explore further:
+- [Sean Lahman's baseball database](http://www.seanlahman.com/baseball-archive/statistics)
+- [The database's data dictionary](http://www.seanlahman.com/files/database/readme2016.txt)
 
+![image](https://user-images.githubusercontent.com/31106403/101530538-a9e18800-3957-11eb-9854-1329519b707b.png)
 
-
-**Initial Questions**
+:baseball:  **Initial Questions**  :baseball:
 
 1. What range of years does the provided database cover? 
 
@@ -33,17 +33,7 @@
 8. Which managers have won the TSN Manager of the Year award in both the National League (NL) and the American League (AL)? Give their full name and the teams that they were managing when they won the award.
 
 
-**Open-ended questions**
-
-10. Analyze all the colleges in the state of Tennessee. Which college has had the most success in the major leagues. Use whatever metric for success you like - number of players, number of games, salaries, world series wins, etc. 
-
-6. Is there any correlation between number of wins and team salary? Use data from 2000 and later to answer this question. As you do this analysis, keep in mind that salaries across the whole league tend to increase together, so you may want to look on a year-by-year basis.
-
-6. In this question, you will explore the connection between number of wins and attendance.
-    <ol type="a">
-      <li>Does there appear to be any correlation between attendance at home games and number of wins? </li>
-      <li>Do teams that win the world series see a boost in attendance the following year? What about teams that made the playoffs? Making the playoffs means either being a division winner or a wild card winner.</li>
-    </ol>
+:baseball:  **Open-ended question I chose to explore**  :baseball:
 
 
 1. It is thought that since left-handed pitchers are more rare, causing batters to face them less often, that they are more effective. Investigate this claim and present evidence to either support or dispute this claim. First, determine just how rare left-handed pitchers are compared with right-handed pitchers. Are left-handed pitchers more likely to win the Cy Young Award? Are they more likely to make it into the hall of fame?

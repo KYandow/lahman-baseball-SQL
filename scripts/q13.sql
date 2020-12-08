@@ -1,37 +1,74 @@
 WITH pitchers AS
-(select yearid, playerid, SUM(g) AS total_games from pitching
-group by playerid, yearid
-having SUM(g) > 10)
+     (SELECT yearid, playerid, SUM(g) AS total_games 
+        FROM pitching
+       GROUP BY playerid, yearid
+	           HAVING SUM(g) > 10)
 
-select ROUND((select count(*) as lefties 
-	   from people p inner join pitchers i on p.playerid = i.playerid
-	   where throws = 'L') /
-	   (select count(*) as throws_r_l from people p inner join pitchers i on p.playerid = i.playerid
-		where throws in ('L', 'R'))::numeric, 2) as pct
+SELECT ROUND(
+       (SELECT COUNT(*) as lefties 
+	     FROM people p 
+               INNER JOIN pitchers i 
+               ON p.playerid = i.playerid
+	    WHERE throws = 'L') /
+	  
+       (SELECT COUNT(*) as throws_r_l 
+          FROM people p 
+               INNER JOIN pitchers i 
+               ON p.playerid = i.playerid
+	    WHERE throws in ('L', 'R'))
+       ::numeric, 2) as pct;
 		
 WITH pitchers AS
-(select yearid, playerid, SUM(g) AS total_games from pitching
-group by playerid, yearid
-having SUM(g) > 10)
+     (SELECT yearid, playerid, SUM(g) AS total_games 
+        FROM pitching
+       GROUP BY playerid, yearid
+      HAVING SUM(g) > 10)
 
-select ROUND((select count(*) from pitchers p inner join awardsplayers a on p.playerid = a.playerid and p.yearid = a.yearid inner join people e on p.playerid = e.playerid
-	   where throws = 'L' AND awardid = 'Cy Young Award') /
-	   (select count(*) from pitchers p inner join awardsplayers a on p.playerid = a.playerid and p.yearid = a.yearid inner join people e on p.playerid = e.playerid
-	   where awardid = 'Cy Young Award')::numeric, 2) as pct
+SELECT ROUND(
+       (SELECT COUNT(*) 
+          FROM pitchers p 
+               INNER JOIN awardsplayers a 
+               ON p.playerid = a.playerid 
+                  AND p.yearid = a.yearid 
+               INNER JOIN people e 
+               ON p.playerid = e.playerid
+	   WHERE throws = 'L' 
+          AND awardid = 'Cy Young Award') /
+
+	  (SELECT COUNT(*) 
+          FROM pitchers p 
+               INNER JOIN awardsplayers a 
+               ON p.playerid = a.playerid 
+                  AND p.yearid = a.yearid 
+               INNER JOIN people e 
+               ON p.playerid = e.playerid
+	    WHERE awardid = 'Cy Young Award')
+        ::numeric, 2) as pct;
 
 WITH pitchers AS
-(select yearid, playerid, SUM(g) AS total_games from pitching
-group by playerid, yearid
-having SUM(g) > 10)
+     (SELECT yearid, playerid, SUM(g) AS total_games 
+        FROM pitching
+       GROUP BY playerid, yearid
+                HAVING SUM(g) > 10)
 
-select ROUND((select count(*) from pitchers p inner join halloffame a on p.playerid = a.playerid inner join people e on p.playerid = e.playerid
-	   where throws = 'L' AND inducted = 'Y') /
-	   (select count(*) from pitchers p inner join halloffame a on p.playerid = a.playerid inner join people e on p.playerid = e.playerid
-	   where inducted = 'Y')::numeric, 2) as pct
-	   
-/* Less Likely Hall - 22% versus 28% total pop
-   More likely Cy Young - 33% versus 28% total pop */
-   
+SELECT ROUND(
+       (SELECT COUNT(*) 
+          FROM pitchers p 
+               INNER JOIN halloffame a 
+               ON p.playerid = a.playerid 
+               INNER JOIN people e 
+               ON p.playerid = e.playerid
+	    WHERE throws = 'L' 
+           AND inducted = 'Y') /
+
+	  (SELECT COUNT(*) 
+          FROM pitchers p 
+               INNER JOIN halloffame a 
+               ON p.playerid = a.playerid 
+               INNER JOIN people e 
+               ON p.playerid = e.playerid
+	    WHERE inducted = 'Y')::numeric, 2) as pct
+	      
 
 
 
