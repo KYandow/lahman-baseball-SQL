@@ -8,6 +8,8 @@
 
 :baseball:  **Initial Questions**  :baseball:
 
+[My answers with code can be found here.](https://github.com/KYandow/lahman-baseball-SQL/files/5661529/lahman-sql-answers.pdf)
+
 1. What range of years does the provided database cover? 
 
 1. Find the name and height of the shortest player in the database. How many games did he play in? What is the name of the team for which he played?
