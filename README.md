@@ -80,28 +80,225 @@ SELECT SUM(sa.salary) AS dough,
 ```
 
 </details>
-	
 
-2. Using the fielding table, group players into three groups based on their position: label players with position OF as "Outfield", those with position "SS", "1B", "2B", and "3B" as "Infield", and those with position "P" or "C" as "Battery". Determine the number of putouts made by each of these three groups in 2016.
-   
-1. Find the average number of strikeouts per game by decade since 1920. Round the numbers you report to 2 decimal places. Do the same for home runs per game. Do you see any trends?
-   
+<details>
+    <summary>4. Find the average number of strikeouts per game by decade since 1920. Round the numbers you report to 2 decimal places. Do the same for home runs per game. Do you see any trends?</summary>
 
-1. Find the player who had the most success stealing bases in 2016, where __success__ is measured as the percentage of stolen base attempts which are successful. (A stolen base attempt results either in a stolen base or being caught stealing.) Consider only players who attempted _at least_ 20 stolen bases.
-	
+Average HR per game |	Average Strikeouts per game	| Decade
+--------------------|-----------------------------|------
+0.8	| 5.63 | 1920
+1.09 | 6.63	| 1930
+1.05 | 7.1	| 1940
+1.68 | 8.8	| 1950
+1.65 | 11.39	| 1960
+1.49 | 10.3	| 1970
+1.61 | 10.69	| 1980
+1.91 | 12.27	| 1990
+2.15 | 13.12	| 2000
+1.97 | 15.04	| 2010
 
-1.  From 1970 – 2016, what is the largest number of wins for a team that did not win the world series? What is the smallest number of wins for a team that did win the world series? Doing this will probably result in an unusually small number of wins for a world series champion – determine why this is the case. Then redo your query, excluding the problem year. How often from 1970 – 2016 was it the case that a team with the most wins also won the world series? What percentage of the time?
+#### Both HRs and Strikeouts are increasing steadily.
+
+```sql
+WITH hr_per_year AS 
+     (SELECT yearid, SUM(HR) AS total_hr, SUM(HRA) 
+        FROM teams
+       WHERE yearid >= '1920'
+       GROUP BY yearid),
+     total_games_per_year AS
+     (SELECT yearid, SUM(g) / 2 AS total_games 
+        FROM teams
+       WHERE yearid >= '1920'
+       GROUP BY yearid),
+     total_so_per_year AS
+     (SELECT yearid, SUM(so) AS total_strikeouts FROM teams
+       WHERE yearid >= '1920'
+       GROUP BY yearid)
+
+SELECT DISTINCT ROUND(AVG(hr_per_game) 
+       OVER(PARTITION BY decade), 2) AS avg_hr_per_game, 
+       ROUND(AVG(so_per_game) 
+       OVER(PARTITION BY decade), 2) AS avg_so_per_game,
+	  decade 
+  FROM (SELECT 
+       ROUND(CAST(h.total_hr / CAST(t.total_games AS float) AS numeric), 2) 
+       AS hr_per_game, 
+ ROUND(CAST(s.total_strikeouts / CAST(t.total_games AS float) AS   numeric), 2) AS so_per_game,
+	 (10 * DATE_PART('decade', TO_DATE(h.yearid::text, 'YYYY'))) AS decade
+  FROM hr_per_year h 
+       INNER JOIN total_games_per_year t 
+       ON h.yearid = t.yearid
+	  INNER JOIN total_so_per_year s
+	  ON h.yearid = s.yearid) AS foo
+ ORDER BY decade
+```
+
+</details>
+
+<details>
+    <summary>5. Find the player who had the most success stealing bases in 2016, where success is measured as the percentage of stolen base attempts which are successful. Consider only players who attempted at least 20 stolen bases.</summary>
+
+#### Chris Owings
+
+```sql
+SELECT 100 * (sb / (sb + cs)::float) AS stolen_base_pct,
+       p.namefirst, p.namelast, sb, cs 
+  FROM batting b 
+       INNER JOIN people p 
+       ON p.playerid = b.playerid 
+ WHERE b.yearid = '2016' and sb + cs >= 20
+ ORDER BY stolen_base_pct
+```
+
+</details> 
+
+<details>
+    <summary>6. From 1970 – 2016, what is the largest number of wins for a team that did not win the world series? What is the smallest number of wins for a team that did win the world series? Doing this will probably result in an unusually small number of wins for a world series champion. Determine why this is the case, then redo your query excluding the problem year. How often from 1970 – 2016 was it the case that a team with the most wins also won the world series? What percentage of the time?</summary>
+
+#### Most Wins no Series - 2001 Mariners
+#### Least Wins with Series - LA Dodgers 
+#### 1981 and 1995 had strikes
+#### Pct Series winner won most: 22.6%
 
 
-8. Using the attendance figures from the homegames table, find the teams and parks which had the top 5 average attendance per game in 2016 (where average attendance is defined as total attendance divided by number of games). Only consider parks where there were at least 10 games played. Report the park name, team name, and average attendance. Repeat for the lowest 5 average attendance.
+```sql
+SELECT yearid, name, /*MIN*/MAX(w)FROM teams
+ WHERE yearid >= 1970 
+   AND yearid <> 1981 
+   AND wswin = 'N' /*'Y'*/
+ GROUP BY yearid, name
+ ORDER BY /*MIN*/MAX(w) DESC;	
 
+WITH sub AS 
+     (SELECT distinct yearid, MAX(w) 
+        OVER (PARTITION BY yearid) AS top_wins 
+        FROM teams
+       WHERE yearid >= 1970 ORDER BY yearid)
 
-8. Which managers have won the TSN Manager of the Year award in both the National League (NL) and the American League (AL)? Give their full name and the teams that they were managing when they won the award.
+SELECT 
+	 (SELECT COUNT(*) 
+         FROM teams t 
+              INNER JOIN sub s 
+              ON t.yearid = s.yearid
+        WHERE top_wins = w 
+              AND t.wswin = 'Y') / 
+	 (SELECT COUNT(*) 
+         FROM teams t 
+              INNER JOIN sub s 
+              ON t.yearid = s.yearid
+        WHERE top_wins = w)::float
+```
+
+</details> 
+
+<details>
+    <summary>7. Using the attendance figures from the homegames table, find the teams and parks which had the top 5 average attendance per game in 2016. Only consider parks where there were at least 10 games played. Report the park name, team name, and average attendance. Repeat for the lowest 5 average attendance.</summary>
+
+team	| park_name	| avg_attend
+------|-----------|-----------
+Top |  | 		
+LAN	| Dodger Stadium | 45719.9
+SLN	| Busch Stadium III	| 42524.6
+TOR	| Rogers Centre	| 41877.8
+SFN	| AT&T Park	| 41546.4
+CHN	| Wrigley Field	| 39906.4
+Bottom |  | 		
+TBA	| Tropicana Field	| 15878.6
+OAK	| Oakland-Alameda County Coliseum	| 18784.0
+CLE	| Progressive Field	| 19650.2
+MIA	| Marlins Park | 21405.2
+CHA	| U.S. Cellular Field	| 21559.2
+
+```sql
+SELECT team, h.park, p.park_name, 
+       (attendance / games::numeric) AS avg_attend 
+  FROM homegames h 
+       INNER JOIN parks p 
+       ON h.park = p.park
+ WHERE year = '2016' 
+       AND games >= 10
+ ORDER BY avg_attend DESC --ORDER BY avg_attend ASC
+ LIMIT 5
+```
+
+</details>   
+
+<details>
+    <summary>8. Which managers have won the TSN Manager of the Year award in both the National League (NL) and the American League (AL)? Give their full name and the teams that they were managing when they won the award.</summary>
+
+#### Jim Leyland Detroit/Pittsburgh
+#### Davey Johnson Baltimore/Washington
+
+```sql
+WITH al_awards AS 
+     (SELECT a.yearid AS al_year, m.teamid AS al_team, p.namefirst, p.namelast, 
+	   awardid AS al_award, a.playerid, a.lgid 
+ FROM managers m 
+      INNER JOIN awardsmanagers a 
+	    ON m.playerid = a.playerid 
+         AND m.yearid = a.yearid 
+         AND m.lgid = a.lgid
+      INNER JOIN people p 
+      ON p.playerid = m.playerid				   
+WHERE awardid = 'TSN Manager of the Year' 
+  AND a.lgid = 'AL'),	 
+	 
+      nl_awards AS 
+      (SELECT a.yearid AS nl_year, m.teamid AS nl_team,                        	 p.namefirst, p.namelast, awardid AS nl_award, 
+      a.playerid, a.lgid 
+ FROM managers m 
+      INNER JOIN awardsmanagers a 
+	    ON m.playerid = a.playerid 
+         AND m.yearid = a.yearid 
+         AND m.lgid = a.lgid
+      INNER JOIN people p 
+      ON p.playerid = m.playerid				   
+WHERE awardid = 'TSN Manager of the Year' 
+  AND a.lgid = 'NL')
+
+SELECT DISTINCT al_award, nl_award, 
+                al_year, nl_year, 
+                al_team, nl_team, a.namefirst, a.namelast 
+  FROM al_awards a 
+       INNER JOIN nl_awards n 
+       ON a.playerid = n.playerid
+```
+
+</details> 
 
 
 :baseball:  **Open-ended question I chose to explore**  :baseball:
 
+<details>
+    <summary>It is thought that since left-handed pitchers are more rare, causing batters to face them less often, that they are more effective. Investigate this claim and present evidence to either support or dispute this claim. Determine just how rare left-handed pitchers are compared with right-handed pitchers. Are left-handed pitchers more likely to win the Cy Young Award? Are they more likely to make it into the hall of fame?</summary>
 
-1. It is thought that since left-handed pitchers are more rare, causing batters to face them less often, that they are more effective. Investigate this claim and present evidence to either support or dispute this claim. First, determine just how rare left-handed pitchers are compared with right-handed pitchers. Are left-handed pitchers more likely to win the Cy Young Award? Are they more likely to make it into the hall of fame?
+#### Left-handers are:
+#### 28% of the general population (10 games or more)
+#### 33% of Cy Young Award winners
+#### 22% of Hall of Fame inductees
+
+```sql
+WITH pitchers AS
+     (SELECT yearid, playerid, SUM(g) AS total_games 
+        FROM pitching
+       GROUP BY playerid, yearid
+	           HAVING SUM(g) > 10)
+
+SELECT ROUND(
+       (SELECT COUNT(*) as lefties 
+	     FROM people p 
+               INNER JOIN pitchers i 
+               ON p.playerid = i.playerid
+	    WHERE throws = 'L') /
+	  
+       (SELECT COUNT(*) as throws_r_l 
+          FROM people p 
+               INNER JOIN pitchers i 
+               ON p.playerid = i.playerid
+	    WHERE throws in ('L', 'R'))
+       ::numeric, 2) as pct;
+```
+
+</details> 
 
   
