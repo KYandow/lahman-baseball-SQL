@@ -301,4 +301,28 @@ SELECT ROUND(
 
 </details> 
 
-  
+#### Additional Findings
+
+I explored deeper by incorporating [pitching effectiveness and pitch movement data for left-handed and right-handed pitchers (2015 only) from fangraphs.com](https://www.fangraphs.com/leaders.aspx?pos=all&stats=pit&lg=all&qual=y&type=18&season=2015&month=0&season1=2015&ind=0&team=0&rost=0&age=0&filter=&players=0&startdate=2015-01-01&enddate=2015-12-31).
+
+![image](https://user-images.githubusercontent.com/31106403/101809822-a24beb80-3add-11eb-8e92-107db23fa7fb.png)
+
+Southpaws (Lefties) trail behind their right-handed counterparts in the speed department. Speed is the most important measure of how hard a pitch is to hit.
+
+![image](https://user-images.githubusercontent.com/31106403/101811141-4eda9d00-3adf-11eb-9db3-6f2362b40804.png)
+
+However, left-handed pitchers seem to move the ball both vertically and horizontally at a greater rate than righties, at least in 2015. That said, this finding conflicts with the assessment of [fivethirtyeight.com](https://fivethirtyeight.com/features/what-really-gives-left-handed-pitchers-their-edge/) and other authorities on the subject, so more investigation may be warranted here.
+
+![image](https://user-images.githubusercontent.com/31106403/101829370-87d33b80-3af8-11eb-9fa6-25f753d7a1fe.png)
+
+The 'platoon advantage' is a term for the inherent historical advantage that pitchers have against same-handed batters. (The corollary is the advantage batters have against other-handed pitchers.)
+
+Here we can see the platoon advantage at work. Notably, lefties in 2015 allowed 0.34 fewer home runs per game when facing their own ilk! Unfortunately for them, since there are fewer left-handed batters than right-handed batters in the major leagues, the platoon advantage is a net detriment to them.
+
+![image](https://user-images.githubusercontent.com/31106403/101830778-a33f4600-3afa-11eb-88d9-5288833f5b45.png)
+
+And in each of these important categories, you'll see that right-handed pitchers maintained an advantage. Opposing batters had a higher batting average, they hit more home runs, and they struck out less against lefties.
+
+Despite their seeming ability to move the ball more, left-handers have a disadvantage in the speed department, and it seems this may be due to the fact that in the world there are simply far less individuals who naturally use their left hands, and therefore the talent pool is smaller. It would be interesting to explore further what proportion of lefties exist at lower levels of play to assess at what rate they succeed versus the proportion in the general population. Regional variation in the proportion of left-handers would also be interesting to examine. Is there a cultural component to handedness in baseball or other sports?
+
+
