@@ -309,7 +309,7 @@ I explored deeper by incorporating [pitching effectiveness and pitch movement da
 
 Southpaws (Lefties) trail behind their right-handed counterparts in the speed department. Speed is the most important measure of how hard a pitch is to hit.
 
-![image](https://user-images.githubusercontent.com/31106403/101811141-4eda9d00-3adf-11eb-9db3-6f2362b40804.png)
+<div style="text-align:center"><img src="https://user-images.githubusercontent.com/31106403/101811141-4eda9d00-3adf-11eb-9db3-6f2362b40804.png" /></div>
 
 However, left-handed pitchers seem to move the ball both vertically and horizontally at a greater rate than righties, at least in 2015. That said, this finding conflicts with the assessment of [fivethirtyeight.com](https://fivethirtyeight.com/features/what-really-gives-left-handed-pitchers-their-edge/) and other authorities on the subject, so more investigation may be warranted here.
 
