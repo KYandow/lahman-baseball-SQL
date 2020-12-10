@@ -319,7 +319,7 @@ The 'platoon advantage' is a term for the inherent historical advantage that pit
 
 Here we can see the platoon advantage at work. Notably, lefties in 2015 allowed 0.34 fewer home runs per game when facing their own ilk! Unfortunately for them, since there are fewer left-handed batters than right-handed batters in the major leagues, the platoon advantage is a net detriment to them.
 
-![image](https://user-images.githubusercontent.com/31106403/101830778-a33f4600-3afa-11eb-88d9-5288833f5b45.png)
+![image](<div style="text-align:center"><img src="https://user-images.githubusercontent.com/31106403/101832181-9e7b9180-3afc-11eb-923e-28c8f7c2a1ed.png" /></div>)
 
 And in each of these important categories, you'll see that right-handed pitchers maintained an advantage. Opposing batters had a higher batting average, they hit more home runs, and they struck out less against lefties.
 
